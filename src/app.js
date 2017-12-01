@@ -5,18 +5,14 @@ import {
   System as SystemConfig
 } from './config'
 import path from 'path'
-import MainRoutes from './routes/main-routes'
+import apiRoutes from './routes/api-routes'
+import adminRoutes from './routes/admin-routes'
 import ErrorRoutesCatch from './middleware/ErrorRoutesCatch'
 import ErrorRoutes from './routes/error-routes'
-import jwt from 'koa-jwt'
-import fs from 'fs'
-// import PluginLoader from './lib/PluginLoader'
-import Sequelize from './lib/sequelize'
+import './lib/sequelize'
 import './models/index'
 const app = new Koa2()
 const env = process.env.NODE_ENV || 'development' // Current mode
-
-const publicKey = fs.readFileSync(path.join(__dirname, '../publicKey.pub'))
 
 app
   .use((ctx, next) => {
@@ -32,7 +28,6 @@ app
   })
   .use(ErrorRoutesCatch())
   .use(KoaStatic('assets', path.resolve(__dirname, '../assets'))) // Static resource
-  .use(jwt({ secret: publicKey }).unless({ path: [/^\/public|\/user\/login|\/assets/] }))
   .use(KoaBody({
     multipart: true,
     strict: false,
@@ -44,8 +39,10 @@ app
     textLimit: '10mb'
   })) // Processing request
   // .use(PluginLoader(SystemConfig.System_plugin_path))
-  .use(MainRoutes.routes())
-  .use(MainRoutes.allowedMethods())
+  .use(apiRoutes.routes())
+  .use(apiRoutes.allowedMethods())
+  .use(adminRoutes.routes())
+  .use(adminRoutes.allowedMethods())
   .use(ErrorRoutes())
 
 if (env === 'development') { // logger

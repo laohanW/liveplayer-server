@@ -11,6 +11,7 @@ module.exports = function () {
               errInfo: 'Protected resource, use Authorization header to get access.'
             }
           }
+          console.log(ctx)
           break
         default:
           throw err
