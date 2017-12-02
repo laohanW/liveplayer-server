@@ -16,7 +16,7 @@ export let categoryRecom = (ctx) => {
 }
 
 export let create = (ctx) => {
-  service.game.create(ctx.request.body)
+  service.game.create(ctx.req.body)
   ctx.body = {
     resCode: 0,
     msg: null,
