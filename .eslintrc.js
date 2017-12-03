@@ -20,6 +20,8 @@ module.exports = {
     // allow async-await
     'generator-star-spacing': 0,
     // allow debugger during development
-    'no-debugger': 0
+    'no-debugger': 0,
+    // allow return await
+    'no-return-await': 0
   }
 }

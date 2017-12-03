@@ -5,6 +5,7 @@ import {
   System as SystemConfig
 } from './config'
 import path from 'path'
+import validate from 'koa-validate'
 import apiRoutes from './routes/api-routes'
 import adminRoutes from './routes/admin-routes'
 import ErrorRoutesCatch from './middleware/ErrorRoutesCatch'
@@ -13,7 +14,7 @@ import './lib/sequelize'
 import './models/index'
 const app = new Koa2()
 const env = process.env.NODE_ENV || 'development' // Current mode
-
+validate(app)
 app
   .use((ctx, next) => {
     if (ctx.request.header.host.split(':')[0] === 'localhost' || ctx.request.header.host.split(':')[0] === '127.0.0.1') {

@@ -2,7 +2,7 @@
 import Sequelize from 'sequelize'
 import sequelize from '../lib/sequelize'
 
-let anchor = sequelize.define('anchor',
+let model = sequelize.define('admin',
   {
     id: {
       type: Sequelize.INTEGER,
@@ -15,18 +15,18 @@ let anchor = sequelize.define('anchor',
     }
   },
   {
-    tableName: 'anchor',
-    timestamp: false,
-    freezeTableName: true
+    tableName: 'TAdmin',
+    timestamp: false
+    // freezeTableName: true
   }
 )
-
+model.sync()
 export let create = (param) => {
-  anchor.create(param)
+  model.create(param)
 }
 export let update = (param, query) => {
-  anchor.update(param, query)
+  model.update(param, query)
 }
 export let destroy = (query) => {
-  anchor.destroy(query)
+  model.destroy(query)
 }
