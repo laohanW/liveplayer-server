@@ -18,8 +18,9 @@ router
   .all(API_PATH + '/upload', controllers.upload.default)
   .post(API_PATH + '/category/add', controllers.category.add)
   .post(API_PATH + '/category/remove', controllers.category.remove)
-  .post(API_PATH + '/entertain/start', controllers.entertain.start)
-  .get(API_PATH + '/entertain/categoryAll', controllers.entertain.categoryAll)
-  .get(API_PATH + '/entertain/categoryRecom', controllers.entertain.categoryRecom)
+  .post(API_PATH + '/liveStream/start', controllers.liveStream.start)
+  .post(API_PATH + '/liveStream/cancel', controllers.liveStream.cancel)
+  .post(API_PATH + '/user/add', controllers.user.add)
+  .post(API_PATH + '/user/remove', controllers.user.remove)
 
 module.exports = router

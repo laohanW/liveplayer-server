@@ -27,12 +27,15 @@ let model = sequelize.define('user',
   }
 )
 model.sync()
-export let create = (param) => {
-  model.create(param)
+export let create = async (param) => {
+  await model.create(param)
 }
-export let update = (param, query) => {
-  model.update(param, query)
+export let update = async (param, query) => {
+  await model.update(param, query)
 }
-export let destroy = (query) => {
-  model.destroy(query)
+export let destroy = async (query) => {
+  await model.destroy(query)
+}
+export let findAll = async (query) => {
+  return await model.findAll(query, {raw: true, logging: true, plain: false})
 }

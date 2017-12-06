@@ -61,3 +61,9 @@ export let getJsonLength = (jsonData) => {
   }
   return arr.length
 }
+
+export let addTFirst = (name) => {
+  let fir = name.slice(0, 1).toUpperCase()
+  let cont = name.slice(1)
+  return 'T' + fir + cont
+}

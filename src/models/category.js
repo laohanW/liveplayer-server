@@ -42,6 +42,3 @@ export let destroy = async (query) => {
 export let findAll = async (query) => {
   return await model.findAll(query, {raw: true, logging: true, plain: false})
 }
-export let has = async (param) => {
-  return await model.findAll(param, {raw: true, logging: true, plain: false})
-}
