@@ -50,3 +50,16 @@ export let allList = async (ctx) => {
     ctx.body = await service.category.allList(type.value)
   }
 }
+export let setRecom = async (ctx) => {
+  let categoryId = ctx.checkBody('categoryId').notEmpty().isInt()
+  let recommended = ctx.checkBody('recommended').notEmpty().isInt()
+  if (ctx.errors) {
+    ctx.body = {
+      resCode: 1,
+      msg: 'params error',
+      response: ctx.errors
+    };
+  } else {
+    ctx.body = await service.category.setRecom(categoryId.value, recommended.value);
+  }
+}

@@ -20,6 +20,7 @@ router
   .post(API_PATH + '/category/remove', controllers.category.remove)
   .post(API_PATH + '/category/recomList', controllers.category.recomList)
   .post(API_PATH + '/category/allList', controllers.category.allList)
+  .post(API_PATH + '/category/setRecom', controllers.category.setRecom)
   .post(API_PATH + '/liveStream/start', controllers.liveStream.start)
   .post(API_PATH + '/liveStream/cancel', controllers.liveStream.cancel)
   .post(API_PATH + '/liveStream/join', controllers.liveStream.join)

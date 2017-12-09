@@ -1,6 +1,8 @@
 import Sequelize from 'sequelize'
 import { DB as DBConfig, System as SystemConfig } from '../config'
-
+const cls = require('continuation-local-storage')
+const namespace = cls.createNamespace('my-very-own-namespace')
+Sequelize.useCLS(namespace)
 const sequelize = new Sequelize(DBConfig.database, DBConfig.username, DBConfig.password, {
   host: DBConfig.host,
   dialect: SystemConfig.db_type,

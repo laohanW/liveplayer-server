@@ -7,7 +7,7 @@ import {
 import path from 'path'
 import validate from 'koa-validate'
 import apiRoutes from './routes/api-routes'
-import adminRoutes from './routes/admin-routes'
+// import adminRoutes from './routes/admin-routes'
 import ErrorRoutesCatch from './middleware/ErrorRoutesCatch'
 import ErrorRoutes from './routes/error-routes'
 import './lib/sequelize'
@@ -42,8 +42,8 @@ app
   // .use(PluginLoader(SystemConfig.System_plugin_path))
   .use(apiRoutes.routes())
   .use(apiRoutes.allowedMethods())
-  .use(adminRoutes.routes())
-  .use(adminRoutes.allowedMethods())
+  // .use(adminRoutes.routes())
+  // .use(adminRoutes.allowedMethods())
   .use(ErrorRoutes())
 
 if (env === 'development') { // logger

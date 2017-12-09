@@ -22,6 +22,9 @@ module.exports = {
     // allow debugger during development
     'no-debugger': 0,
     // allow return await
-    'no-return-await': 0
+    'no-return-await': 0,
+    'func-call-spacing': 0,
+    'no-unexpected-multiline': 0,
+    'semi': 0
   }
 }
