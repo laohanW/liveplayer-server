@@ -1,18 +1,18 @@
 import models from '../models'
 export let start = async (categoryId, account) => {
-  let hasCategory = await models.category.findAll({
+  let hasCategory = await models.category.findOne({
     where: {
       id: categoryId
     }
   })
-  let hasAccount = await models.user.findAll({
+  let hasAccount = await models.user.findOne({
     where: {
       account: account
     }
   })
-  if (hasCategory.length > 0) {
-    if (hasAccount.length > 0) {
-      await models._libraries.create(hasCategory[0].dataValues.name,
+  if (hasCategory) {
+    if (hasAccount) {
+      await models._libraries.create(hasCategory.get('name'),
         {
           account: account
         }

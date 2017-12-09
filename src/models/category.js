@@ -16,6 +16,9 @@ let model = sequelize.define('category',
     name: {
       type: Sequelize.STRING
     },
+    childCategory: {
+      type: Sequelize.STRING
+    },
     recommended: {
       type: Sequelize.BOOLEAN
     },
@@ -41,4 +44,7 @@ export let destroy = async (query) => {
 }
 export let findAll = async (query) => {
   return await model.findAll(query, {raw: true, logging: true, plain: false})
+}
+export let findOne = async (query) => {
+  return await model.findOne(query, {raw: true, logging: true, plain: false})
 }

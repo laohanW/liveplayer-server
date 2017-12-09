@@ -26,3 +26,27 @@ export let remove = async (ctx) => {
     ctx.body = await service.category.remove(categoryId.value)
   }
 }
+export let recomList = async (ctx) => {
+  let type = ctx.checkBody('type').notEmpty().isInt()
+  if (ctx.errors) {
+    ctx.body = {
+      resCode: 1,
+      msg: 'dong has type params',
+      response: ctx.errors
+    }
+  } else {
+    ctx.body = await service.category.recomList(type.value)
+  }
+}
+export let allList = async (ctx) => {
+  let type = ctx.checkBody('type').notEmpty().isInt()
+  if (ctx.errors) {
+    ctx.body = {
+      resCode: 1,
+      msg: 'dong has type params',
+      response: ctx.errors
+    }
+  } else {
+    ctx.body = await service.category.allList(type.value)
+  }
+}

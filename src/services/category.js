@@ -2,14 +2,14 @@ import models from '../models'
 import {addTFirst} from '../tool/Common'
 import Sequelize from 'sequelize'
 export let add = async (type, categoryName, desc) => {
-  let h = await models.category.findAll(
+  let h = await models.category.findOne(
     {
       where: {
         type: type,
         name: categoryName
       }
     })
-  if (h.length === 0) {
+  if (h) {
     await models.category.create({
       type: type,
       name: categoryName,
@@ -44,14 +44,14 @@ export let add = async (type, categoryName, desc) => {
   }
 }
 export let remove = async (categoryId) => {
-  let h = await models.category.findAll(
+  let h = await models.category.findOne(
     {
       where: {
         id: categoryId
       }
     })
-  if (h.length > 0) {
-    models._libraries.drop(h[0].dataValues.name)
+  if (h) {
+    models._libraries.drop(h.get('name'))
     models.category.destroy(
       {
         where: {
@@ -67,6 +67,48 @@ export let remove = async (categoryId) => {
     return {
       resCode: 1,
       msg: 'categoryId is dont has ',
+      response: null
+    }
+  }
+}
+export let recomList = async (type) => {
+  let cat = await models.category.findAll({
+    where: {
+      type: type,
+      recommended: true
+    }
+  })
+  if (cat.length > 0) {
+    let result = []
+    for (let p of cat) {
+      result.push(JSON.stringify(p))
+    }
+    return result
+  } else {
+    return {
+      resCode: 1,
+      msg: 'dont has this type' + type,
+      response: null
+    }
+  }
+}
+export let allList = async (type) => {
+  let cat = await models.category.findAll({
+    where: {
+      type: type
+    },
+    distinct: true
+  })
+  if (cat.length > 0) {
+    let result = []
+    for (let p of cat) {
+      result.push(JSON.stringify(p))
+    }
+    return result
+  } else {
+    return {
+      resCode: 1,
+      msg: 'dont has this type' + type,
       response: null
     }
   }

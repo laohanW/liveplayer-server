@@ -14,6 +14,7 @@ const sequelize = new Sequelize(DBConfig.database, DBConfig.username, DBConfig.p
     max: 50,
     min: 0,
     idle: 10000
-  }
+  },
+  operatorsAliases: false
 })
 export default sequelize

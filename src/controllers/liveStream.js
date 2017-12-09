@@ -26,3 +26,19 @@ export let cancel = async (ctx) => {
     ctx.body = await service.liveStream.start(categoryId.value, account.value)
   }
 }
+export let join = async (ctx) => {
+  ctx.body = {
+    resCode: 0,
+    msg: null,
+    response: null
+  }
+}
+export let list = async (ctx) => {
+  let categoryId = ctx.checkBody('categoryId').notEmpty().isInt()
+  let detailId = ctx.checkBody('detailId').notEmpty().isInt()
+  if (ctx.errors) {
+
+  } else {
+
+  }
+}

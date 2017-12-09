@@ -2,7 +2,7 @@
 import Sequelize from 'sequelize'
 import sequelize from '../lib/sequelize'
 
-let model = sequelize.define('user',
+let model = sequelize.define('childCategory',
   {
     id: {
       type: Sequelize.INTEGER,
@@ -10,18 +10,12 @@ let model = sequelize.define('user',
       primaryKey: true,
       unique: true
     },
-    account: {
-      type: Sequelize.STRING
-    },
-    password: {
-      type: Sequelize.STRING
-    },
     name: {
       type: Sequelize.STRING
     }
   },
   {
-    tableName: 'TUser',
+    tableName: 'TChildCategory',
     timestamp: false
     // freezeTableName: true
   }
@@ -38,7 +32,4 @@ export let destroy = async (query) => {
 }
 export let findAll = async (query) => {
   return await model.findAll(query, {raw: true, logging: true, plain: false})
-}
-export let findOne = async (query) => {
-  return await model.findOne(query, {raw: true, logging: true, plain: false})
 }

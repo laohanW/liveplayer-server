@@ -18,8 +18,11 @@ router
   .all(API_PATH + '/upload', controllers.upload.default)
   .post(API_PATH + '/category/add', controllers.category.add)
   .post(API_PATH + '/category/remove', controllers.category.remove)
+  .post(API_PATH + '/category/recomList', controllers.category.recomList)
+  .post(API_PATH + '/category/allList', controllers.category.allList)
   .post(API_PATH + '/liveStream/start', controllers.liveStream.start)
   .post(API_PATH + '/liveStream/cancel', controllers.liveStream.cancel)
+  .post(API_PATH + '/liveStream/join', controllers.liveStream.join)
   .post(API_PATH + '/user/add', controllers.user.add)
   .post(API_PATH + '/user/remove', controllers.user.remove)
 
