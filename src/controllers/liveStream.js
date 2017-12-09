@@ -11,11 +11,11 @@ export let start = async (ctx) => {
       response: ctx.errors
     }
   } else {
-    ctx.body = await service.liveStream.start(categoryId.value,childCategoryId.value, account.value)
+    ctx.body = await service.liveStream.start(categoryId.value, childCategoryId.value, account.value)
   }
 }
 export let cancel = async (ctx) => {
-  let categoryId = ctx.checkBody('categoryId').notEmpty().isInt()
+  let streamId = ctx.checkBody('streamId').notEmpty().isInt()
   let account = ctx.checkBody('account').notEmpty()
   if (ctx.errors) {
     ctx.body = {
@@ -24,7 +24,7 @@ export let cancel = async (ctx) => {
       response: ctx.errors
     }
   } else {
-    ctx.body = await service.liveStream.start(categoryId.value, account.value)
+    ctx.body = await service.liveStream.cancel(streamId.value, account.value)
   }
 }
 export let join = async (ctx) => {
@@ -35,7 +35,6 @@ export let join = async (ctx) => {
   }
 }
 export let list = async (ctx) => {
-  let categoryId = ctx.checkBody('categoryId').notEmpty().isInt()
   let childCategoryId = ctx.checkBody('childCategoryId').notEmpty().isInt()
   if (ctx.errors) {
     ctx.body = {
@@ -44,6 +43,6 @@ export let list = async (ctx) => {
       response: ctx.errors
     };
   } else {
-    ctx.body = await service.liveStream.list(categoryId.value, childCategoryId.value)
+    ctx.body = await service.liveStream.list(childCategoryId.value)
   }
 }

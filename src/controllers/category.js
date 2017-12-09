@@ -63,3 +63,28 @@ export let setRecom = async (ctx) => {
     ctx.body = await service.category.setRecom(categoryId.value, recommended.value);
   }
 }
+export let addChild = async (ctx) => {
+  let childCategoryName = ctx.checkBody('childCategoryName').notEmpty()
+  let categoryId = ctx.checkBody('categoryId').notEmpty().isInt()
+  if (ctx.errors) {
+    ctx.body = {
+      resCode: 1,
+      msg: 'validate errors ',
+      response: ctx.errors
+    };
+  } else {
+    ctx.body = await service.category.addChild(categoryId.value, childCategoryName.value);
+  }
+}
+export let removeChild = async (ctx) => {
+  let childCategoryId = ctx.checkBody('childCategoryId').notEmpty().isInt()
+  if (ctx.errors) {
+    ctx.body = {
+      resCode: 1,
+      msg: 'validate errors',
+      response: ctx.errors
+    }
+  } else {
+    ctx.body = await service.category.removeChild(childCategoryId.value)
+  }
+}

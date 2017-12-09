@@ -3,19 +3,23 @@ export let start = async (categoryId, childCategoryId, account) => {
   let category = await models.category.findOne({
     where: {
       id: categoryId
-    }
-  })
-  let childCategory = await models.childCategory.findOne({
-    where: {
-      id: childCategoryId
-    }
+    },
+    include:
+      [
+        {
+          model: models.childCategory.instance,
+          where: {
+            id: childCategoryId
+          }
+        }
+      ]
   })
   let user = await models.user.findOne({
     where: {
       account: account
     }
   })
-  if (category && childCategory && user) {
+  if (category && user) {
     let error = await models.liveStream.create({
       account: account,
       categoryId: categoryId,
@@ -37,61 +41,58 @@ export let start = async (categoryId, childCategoryId, account) => {
   } else {
     return {
       resCode: 1,
-      msg: 'dont has category or user or childCategory=>' + categoryId + '  '+childCategoryId + '   ' + account,
+      msg: 'dont has category or user or childCategory=>' + categoryId + '  ' + childCategoryId + '   ' + account,
       response: null
     }
   }
 }
-export let cancel = async (categoryId, childCategoryId, account) => {
-  let category = await models.category.findOne({
-    where: {
-      id: categoryId
-    }
-  })
-  let childCategory = await models.childCategory.findOne({
-    where: {
-      id: childCategoryId
-    }
-  })
+export let cancel = async (streamId, account) => {
   let user = await models.user.findOne({
     where: {
       account: account
     }
   })
-  if (user && category && childCategory)
-  {
+  if (user) {
     let result = await models.liveStream.destroy({
       where: {
-        categoryId: categoryId,
-        childCategoryId: childCategoryId,
+        id: streamId,
         account: account
       }
     });
-    if (result) {
+    if (result > 0) {
       return {
-        resCode: 1,
-        msg: 'cancel failure',
+        resCode: 0,
+        msg: null,
         response: null
       }
     } else {
       return {
-        resCode: 0,
-        msg: null,
+        resCode: 1,
+        msg: 'cancel failure',
         response: null
       }
     }
   } else {
     return {
       resCode: 1,
-      msg: 'dont has category or user or childCategory=>' + categoryId + '  '+childCategoryId + '   ' + account,
+      msg: 'dont has stream or user=>' + streamId + '   ' + account,
       response: null
     }
   }
 }
-export let list = async (categoryId,childCategoryId) => {
-  return {
-    resCode: 0,
-    msg: null,
-    response: null
+export let list = async (childCategoryId) => {
+  let liveStream = await models.liveStream.findAll({
+    where: {
+      childCategoryId: childCategoryId
+    }
+  })
+  if (liveStream) {
+    return JSON.stringify(liveStream)
+  } else {
+    return {
+      resCode: 1,
+      msg: 'dont has this categoryId and childCategoryId',
+      response: null
+    }
   }
-}
+};

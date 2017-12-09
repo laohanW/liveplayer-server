@@ -129,6 +129,7 @@ initialize()
 // region export
 export default {
   category: {
+    instance: category,
     create: async (query) => {
       return await sequelize.transaction(async function (t) {
         await category.create(query)
@@ -160,6 +161,7 @@ export default {
     }
   },
   childCategory: {
+    instance: childCategory,
     create: async (query) => {
       return await sequelize.transaction(async function (t) {
         await childCategory.create(query)

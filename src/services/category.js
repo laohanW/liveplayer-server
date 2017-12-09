@@ -40,9 +40,10 @@ export let remove = async (categoryId) => {
     {
       where: {
         id: categoryId
-      }
-    });
-  if (result === 1) {
+      },
+      include: [models.childCategory.instance]
+    })
+  if (result > 0) {
     return {
       resCode: 0,
       msg: null,
@@ -64,11 +65,7 @@ export let recomList = async (type) => {
     }
   })
   if (cat && cat.length > 0) {
-    let result = []
-    for (let p of cat) {
-      result.push(JSON.stringify(p))
-    }
-    return result
+    return JSON.stringify(cat)
   } else {
     return {
       resCode: 1,
@@ -107,16 +104,71 @@ export let allList = async (type) => {
     distinct: true
   })
   if (cat && cat.length > 0) {
-    let result = []
-    for (let p of cat) {
-      result.push(JSON.stringify(p))
-    }
-    return result
+    return JSON.stringify(cat)
   } else {
     return {
       resCode: 1,
       msg: 'dont has this type' + type,
       response: null
     }
+  }
+}
+export let addChild = async (categoryId, childCategoryName) => {
+  let category = await models.category.findOne({
+    where: {
+      id: categoryId
+    },
+    include: [
+      {
+        model: models.childCategory.instance,
+        where: {
+          name: childCategoryName
+        }
+      }
+    ]
+  });
+  if (category) {
+    let errors = await models.childCategory.create({
+      categoryId: categoryId,
+      name: childCategoryName
+    })
+    if (errors) {
+      return {
+        resCode: 1,
+        msg: null,
+        response: null
+      };
+    } else {
+      return {
+        resCode: 0,
+        msg: null,
+        response: errors
+      }
+    }
+  } else {
+    return {
+      resCode: 1,
+      msg: 'dont has this categoryId or has this childCategoryName=>' + categoryId + '   ' + childCategoryName
+    };
+  }
+}
+export let removeChild = async (childCategoryId) => {
+  let result = await models.childCategory.destroy({
+    where: {
+      id: childCategoryId
+    }
+  })
+  if (result > 0) {
+    return {
+      resCode: 0,
+      msg: null,
+      response: null
+    }
+  } else {
+    return {
+      resCode: 1,
+      msg: 'destroy errors',
+      response: result
+    };
   }
 }

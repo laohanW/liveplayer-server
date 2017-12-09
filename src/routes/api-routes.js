@@ -16,14 +16,20 @@ router
     ctx.body = '禁止访问！'
   }) // 以/public开头则不用经过权限认证
   .all(API_PATH + '/upload', controllers.upload.default)
+
   .post(API_PATH + '/category/add', controllers.category.add)
   .post(API_PATH + '/category/remove', controllers.category.remove)
   .post(API_PATH + '/category/recomList', controllers.category.recomList)
   .post(API_PATH + '/category/allList', controllers.category.allList)
   .post(API_PATH + '/category/setRecom', controllers.category.setRecom)
+  .post(API_PATH + '/category/addChild', controllers.category.addChild)
+  .post(API_PATH + '/category/removeChild', controllers.category.removeChild)
+
   .post(API_PATH + '/liveStream/start', controllers.liveStream.start)
   .post(API_PATH + '/liveStream/cancel', controllers.liveStream.cancel)
+  .post(API_PATH + '/liveStream/list', controllers.liveStream.list)
   .post(API_PATH + '/liveStream/join', controllers.liveStream.join)
+
   .post(API_PATH + '/user/add', controllers.user.add)
   .post(API_PATH + '/user/remove', controllers.user.remove)
   .post(API_PATH + '/user/resetPassword', controllers.user.resetPassword)
