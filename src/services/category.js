@@ -14,17 +14,17 @@ export let add = async (type, categoryName, desc) => {
       response: null
     }
   } else {
-    let error = await models.category.create({
+    let result = await models.category.create({
       type: type,
       name: categoryName,
-      recommended: false,
+      recommended: 0,
       description: desc
     })
-    if (error) {
+    if (result) {
       return {
         resCode: 1,
         msg: 'category create fail ',
-        response: error
+        response: result
       }
     } else {
       return {
@@ -36,37 +36,23 @@ export let add = async (type, categoryName, desc) => {
   }
 }
 export let remove = async (categoryId) => {
-  let h = await models.category.findOne(
+  let result = await models.category.destroy(
     {
       where: {
         id: categoryId
       }
-    })
-  if (h) {
+    });
+  if (result === 1) {
     return {
-      resCode: 1,
-      msg: 'categoryId is dont has ',
+      resCode: 0,
+      msg: null,
       response: null
     }
   } else {
-    let error = models.category.destroy(
-      {
-        where: {
-          id: categoryId
-        }
-      });
-    if (error) {
-      return {
-        resCode: 1,
-        msg: 'category remove filure',
-        response: error
-      }
-    } else {
-      return {
-        resCode: 0,
-        msg: null,
-        response: null
-      }
+    return {
+      resCode: 1,
+      msg: 'category remove filure',
+      response: result
     }
   }
 }

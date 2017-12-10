@@ -130,30 +130,134 @@ initialize()
 export default {
   category: {
     create: async (query) => {
-      sequelize.transaction(async function (t) {
+      return await sequelize.transaction(async function (t) {
         await category.create(query)
+        return undefined
       }).catch(function (err) {
         return err
       })
     },
     update: async (query, option) => {
-      sequelize.transaction(async function (t) {
+      return await sequelize.transaction(async function (t) {
         await category.update(query, option)
+        return undefined
       }).catch(function (err) {
         return err
       })
     },
     findAll: async (query) => {
-      await category.findAll(query)
+      return await category.findAll(query)
     },
     findOne: async (query) => {
-      await category.findOne(query, {raw: true, logging: true, plain: false})
+      return await category.findOne(query, {raw: true, logging: true, plain: false})
     },
     destroy: async (query) => {
-      sequelize.transaction(async function (t) {
-        await category.destroy(query)
+      return await sequelize.transaction(async function (t) {
+        return await category.destroy(query);
       }).catch(function (err) {
-        return err;
+        return err
+      })
+    }
+  },
+  childCategory: {
+    create: async (query) => {
+      return await sequelize.transaction(async function (t) {
+        await childCategory.create(query)
+        return undefined
+      }).catch(function (err) {
+        return err
+      })
+    },
+    update: async (query, option) => {
+      return await sequelize.transaction(async function (t) {
+        await childCategory.update(query, option)
+        return undefined
+      }).catch(function (err) {
+        return err
+      })
+    },
+    findAll: async (query) => {
+      return await childCategory.findAll(query)
+    },
+    findOne: async (query) => {
+      return await childCategory.findOne(query, {raw: true, logging: true, plain: false})
+    },
+    destroy: async (query) => {
+      return await sequelize.transaction(async function (t) {
+        return await childCategory.destroy(query);
+      }).catch(function (err) {
+        return err
+      })
+    }
+  },
+  user: {
+    create: async (query) => {
+      return await sequelize.transaction(async function (t) {
+        await user.create(query)
+        return undefined
+      }).catch(function (err) {
+        return err
+      })
+    },
+    update: async (query, option) => {
+      return await sequelize.transaction(async function (t) {
+        await user.update(query, option)
+        return undefined
+      }).catch(function (err) {
+        return err
+      })
+    },
+    findOne: async (query) => {
+      return await sequelize.transaction(async function (t) {
+        return await user.findOne(query)
+      }).catch(function (err) {
+        return err
+      })
+    },
+    findAll: async (query) => {
+      return await sequelize.transaction(async function (t) {
+        return await user.findAll(query)
+      }).catch(function (err) {
+        return err
+      })
+    },
+    destroy: async (query) => {
+      return await  sequelize.transaction(async function (t) {
+        await user.destroy(query)
+        return undefined
+      }).catch(function (err) {
+        return err
+      })
+    }
+  },
+  liveStream: {
+    create: async (query) => {
+      return await sequelize.transaction(async function (t) {
+        await liveStream.create(query)
+        return undefined
+      }).catch(function (err) {
+        return err
+      })
+    },
+    update: async (query, option) => {
+      return await sequelize.transaction(async function (t) {
+        await liveStream.update(query, option)
+        return undefined
+      }).catch(function (err) {
+        return err
+      })
+    },
+    findAll: async (query) => {
+      return await liveStream.findAll(query)
+    },
+    findOne: async (query) => {
+      return await liveStream.findOne(query, {raw: true, logging: true, plain: false})
+    },
+    destroy: async (query) => {
+      return await sequelize.transaction(async function (t) {
+        return await liveStream.destroy(query);
+      }).catch(function (err) {
+        return err
       })
     }
   }
