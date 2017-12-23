@@ -28,9 +28,6 @@ app.io = socketIO(server, {
 });
 app
   .use((ctx, next) => {
-    ctx.io = app.io;
-  })
-  .use((ctx, next) => {
     if (ctx.request.header.host.split(':')[0] === 'localhost' || ctx.request.header.host.split(':')[0] === '127.0.0.1') {
       ctx.set('Access-Control-Allow-Origin', '*')
     } else {
@@ -59,7 +56,16 @@ app
   // .use(adminRoutes.routes())
   // .use(adminRoutes.allowedMethods())
   .use(ErrorRoutes())
-
+// app.io.on('connection', (socket) => {
+//   console.log('connection => ' + socket.id);
+//   socket.on('message', (data) => {
+//     socket.broadcast.emit('message', data);
+//     console.log('message' + data);
+//   });
+//   socket.on('disconnect', (reason) => {
+//     console.log('disconnect' + reason);
+//   });
+// });
 if (env === 'development') { // logger
   app.use((ctx, next) => {
     const start = new Date()

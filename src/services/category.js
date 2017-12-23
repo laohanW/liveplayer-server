@@ -172,3 +172,19 @@ export let removeChild = async (childCategoryId) => {
     };
   }
 }
+export let childRecomLIst = async (categoryId) => {
+  let cat = await models.childCategory.findAll({
+    where: {
+      type: categoryId
+    }
+  })
+  if (cat && cat.length > 0) {
+    return JSON.stringify(cat)
+  } else {
+    return {
+      resCode: 1,
+      msg: 'dont has this type=>' + categoryId,
+      response: null
+    }
+  }
+}

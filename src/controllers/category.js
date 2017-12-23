@@ -88,3 +88,15 @@ export let removeChild = async (ctx) => {
     ctx.body = await service.category.removeChild(childCategoryId.value)
   }
 }
+export let childRecomList = async (ctx) => {
+  let categoryId = ctx.checkBody('categoryId').notEmpty().isInt()
+  if (ctx.errors) {
+    ctx.body = {
+      resCode: 1,
+      msg: 'dong has type params',
+      response: ctx.errors
+    }
+  } else {
+    ctx.body = await service.category.childRecomLIst(categoryId.value)
+  }
+}

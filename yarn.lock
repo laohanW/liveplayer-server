@@ -3966,7 +3966,7 @@ socket.io-parser@~3.1.1:
 
 socket.io@^2.0.4:
   version "2.0.4"
-  resolved "http://registry.npm.taobao.org/socket.io/download/socket.io-2.0.4.tgz#c1a4590ceff87ecf13c72652f046f716b29e6014"
+  resolved "https://registry.yarnpkg.com/socket.io/-/socket.io-2.0.4.tgz#c1a4590ceff87ecf13c72652f046f716b29e6014"
   dependencies:
     debug "~2.6.6"
     engine.io "~3.1.0"

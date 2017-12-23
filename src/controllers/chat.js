@@ -8,6 +8,14 @@ export let create = async (ctx) => {
       response: ctx.errors
     };
   } else {
-    ctx.io.of('/chats').on('connection')
+    ctx.app.io.of('/' + account).on('connection', (socket) => {
+      socket.on('message', (data) => {
+        socket.broadcast.emit('message', data);
+        console.log(data);
+      });
+      socket.on('disconnect', (reason) => {
+        console.log(reason);
+      });
+    });
   }
 }
