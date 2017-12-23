@@ -34,4 +34,6 @@ router
   .post(API_PATH + '/user/remove', controllers.user.remove)
   .post(API_PATH + '/user/resetPassword', controllers.user.resetPassword)
 
+  .post(API_PATH + '/chat/create',controllers.chat.create)
+
 module.exports = router
