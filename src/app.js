@@ -1,6 +1,6 @@
 import Koa2 from 'koa'
-import http from 'http'
-import socketIO from 'socket.io'
+// import http from 'http'
+// import socketIO from 'socket.io'
 import KoaBody from 'koa-body'
 import KoaStatic from 'koa-static2'
 import {
@@ -16,16 +16,16 @@ import './lib/sequelize'
 import './models/index'
 const app = new Koa2()
 const env = process.env.NODE_ENV || 'development' // Current mode
-const server = http.createServer(app.callback);
+// const server = http.createServer(app.callback);
 validate(app)
-app.io = socketIO(server, {
-  path: '/',
-  serveClient: false,
-  // below are engine.IO options
-  pingInterval: 10000,
-  pingTimeout: 5000,
-  cookie: false
-});
+// app.io = socketIO(server, {
+//   path: '/',
+//   serveClient: false,
+//   // below are engine.IO options
+//   pingInterval: 10000,
+//   pingTimeout: 5000,
+//   cookie: false
+// });
 app
   .use((ctx, next) => {
     if (ctx.request.header.host.split(':')[0] === 'localhost' || ctx.request.header.host.split(':')[0] === '127.0.0.1') {
@@ -76,8 +76,8 @@ if (env === 'development') { // logger
   })
 }
 
-server.listen(SystemConfig.API_server_port)
-
+// server.listen(SystemConfig.API_server_port)
+app.listen(SystemConfig.API_server_port)
 console.log('Now start API server on port ' + SystemConfig.API_server_port + '...')
 
 export default app

@@ -16,7 +16,9 @@ router
     ctx.body = '禁止访问！'
   }) // 以/public开头则不用经过权限认证
   .all(API_PATH + '/upload', controllers.upload.default)
-
+  .get(API_PATH + '/test/get', function (ctx, next) {
+    ctx.body = 'get success!';
+  })
   .post(API_PATH + '/category/add', controllers.category.add)
   .post(API_PATH + '/category/remove', controllers.category.remove)
   .post(API_PATH + '/category/recomList', controllers.category.recomList)
